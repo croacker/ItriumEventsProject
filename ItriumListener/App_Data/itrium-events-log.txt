@@ -1,0 +1,50 @@
+2015-08-17 02:14:25,509 [50] INFO  ItriumListener.Global [(null)] - Application start...
+2015-08-17 02:14:25,548 [46] INFO  ItriumListener.ItriumEventHttpListener [(null)] - Process Itrium request....
+2015-08-17 02:14:25,584 [46] ERROR ItriumCls.EventProcessor [(null)] - System.Xml.XmlException: Отсутствует корневой элемент.
+   в System.Xml.XmlTextReaderImpl.Throw(Exception e)
+   в System.Xml.XmlTextReaderImpl.ParseDocumentContent()
+   в System.Xml.XmlTextReaderImpl.Read()
+   в System.Xml.XmlLoader.Load(XmlDocument doc, XmlReader reader, Boolean preserveWhitespace)
+   в System.Xml.XmlDocument.Load(XmlReader reader)
+   в System.Xml.XmlDocument.LoadXml(String xml)
+   в ItriumCls.EventProcessor.getDataFromEvent(String eventData) в C:\projects\vs\ItriumProject\ItriumListener\ItriumCls\EventProcessor.cs:строка 116
+   в ItriumCls.EventProcessor.getDataEvent(String eventData) в C:\projects\vs\ItriumProject\ItriumListener\ItriumCls\EventProcessor.cs:строка 58
+2015-08-17 02:14:25,598 [46] ERROR ItriumListener.ItriumEventHttpListener [(null)] - Отсутствует корневой элемент.
+System.Exception: Отсутствует корневой элемент. ---> System.Xml.XmlException: Отсутствует корневой элемент.
+   в System.Xml.XmlTextReaderImpl.Throw(Exception e)
+   в System.Xml.XmlTextReaderImpl.ParseDocumentContent()
+   в System.Xml.XmlTextReaderImpl.Read()
+   в System.Xml.XmlLoader.Load(XmlDocument doc, XmlReader reader, Boolean preserveWhitespace)
+   в System.Xml.XmlDocument.Load(XmlReader reader)
+   в System.Xml.XmlDocument.LoadXml(String xml)
+   в ItriumCls.EventProcessor.getDataFromEvent(String eventData) в C:\projects\vs\ItriumProject\ItriumListener\ItriumCls\EventProcessor.cs:строка 116
+   в ItriumCls.EventProcessor.getDataEvent(String eventData) в C:\projects\vs\ItriumProject\ItriumListener\ItriumCls\EventProcessor.cs:строка 58
+   --- Конец трассировки внутреннего стека исключений ---
+   в ItriumCls.EventProcessor.getDataEvent(String eventData) в C:\projects\vs\ItriumProject\ItriumListener\ItriumCls\EventProcessor.cs:строка 63
+   в ItriumListener.ItriumEventHttpListener.getData(String eventData) в C:\projects\vs\ItriumProject\ItriumListener\ItriumListener\ItriumEventHttpListener.cs:строка 48
+2015-08-17 02:14:25,602 [46] INFO  ItriumCls.WriteDataService [(null)] - Write event data: System.Collections.Generic.Dictionary`2[System.String,System.String]
+2015-08-17 02:16:22,427 [28] INFO  ItriumListener.Global [(null)] - Application start...
+2015-08-17 02:16:27,761 [54] INFO  ItriumListener.ItriumEventHttpListener [(null)] - Process Itrium request....
+2015-08-17 02:16:27,810 [54] ERROR ItriumCls.EventProcessor [(null)] - System.Xml.XmlException: Отсутствует корневой элемент.
+   в System.Xml.XmlTextReaderImpl.Throw(Exception e)
+   в System.Xml.XmlTextReaderImpl.ParseDocumentContent()
+   в System.Xml.XmlTextReaderImpl.Read()
+   в System.Xml.XmlLoader.Load(XmlDocument doc, XmlReader reader, Boolean preserveWhitespace)
+   в System.Xml.XmlDocument.Load(XmlReader reader)
+   в System.Xml.XmlDocument.LoadXml(String xml)
+   в ItriumCls.EventProcessor.getDataFromEvent(String eventData) в C:\projects\vs\ItriumProject\ItriumListener\ItriumCls\EventProcessor.cs:строка 116
+   в ItriumCls.EventProcessor.getDataEvent(String eventData) в C:\projects\vs\ItriumProject\ItriumListener\ItriumCls\EventProcessor.cs:строка 58
+2015-08-17 02:16:27,820 [54] ERROR ItriumListener.ItriumEventHttpListener [(null)] - Отсутствует корневой элемент.
+System.Exception: Отсутствует корневой элемент. ---> System.Xml.XmlException: Отсутствует корневой элемент.
+   в System.Xml.XmlTextReaderImpl.Throw(Exception e)
+   в System.Xml.XmlTextReaderImpl.ParseDocumentContent()
+   в System.Xml.XmlTextReaderImpl.Read()
+   в System.Xml.XmlLoader.Load(XmlDocument doc, XmlReader reader, Boolean preserveWhitespace)
+   в System.Xml.XmlDocument.Load(XmlReader reader)
+   в System.Xml.XmlDocument.LoadXml(String xml)
+   в ItriumCls.EventProcessor.getDataFromEvent(String eventData) в C:\projects\vs\ItriumProject\ItriumListener\ItriumCls\EventProcessor.cs:строка 116
+   в ItriumCls.EventProcessor.getDataEvent(String eventData) в C:\projects\vs\ItriumProject\ItriumListener\ItriumCls\EventProcessor.cs:строка 58
+   --- Конец трассировки внутреннего стека исключений ---
+   в ItriumCls.EventProcessor.getDataEvent(String eventData) в C:\projects\vs\ItriumProject\ItriumListener\ItriumCls\EventProcessor.cs:строка 63
+   в ItriumListener.ItriumEventHttpListener.getData(String eventData) в C:\projects\vs\ItriumProject\ItriumListener\ItriumListener\ItriumEventHttpListener.cs:строка 48
+2015-08-17 02:16:27,823 [54] INFO  ItriumCls.WriteDataService [(null)] - Write event data: System.Collections.Generic.Dictionary`2[System.String,System.String]
