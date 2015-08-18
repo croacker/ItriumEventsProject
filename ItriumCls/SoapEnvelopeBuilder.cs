@@ -13,7 +13,7 @@ namespace ItriumCls
                     <soap:Body>
                         <wsnt:Subscribe>
  		                    <wsnt:ConsumerReference>
- 			                    <wsa:Address>" + AppProperties.EVENT_LISTENER_ADDRESS
+ 			                    <wsa:Address>" + AppProperties.EventListenerAddress
                                                + "</wsa:Address> </wsnt:ConsumerReference> </wsnt:Subscribe> </soap:Body></soap:Envelope>");
             return soapEnvelop;
         }

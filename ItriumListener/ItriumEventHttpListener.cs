@@ -36,7 +36,13 @@ namespace ItriumListener
                 requestData = streamReader.ReadToEnd();
             }
 
+            writeOriginal(requestData);
             writeData(getData(requestData));
+        }
+
+        private void writeOriginal(string requestData)
+        {
+            persistService.persistEventOriginal(requestData);
         }
 
         private Dictionary<string, string> getData(string eventData)

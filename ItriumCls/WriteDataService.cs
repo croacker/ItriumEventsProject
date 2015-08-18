@@ -13,7 +13,7 @@ namespace ItriumCls
         public void writeData(Dictionary<string, string> data)
         {
             log.Info("Write event data: " + data);
-            using (var streamWriter = new StreamWriter(AppProperties.RESULT_FILE_NAME, true, Encoding.Default))
+            using (var streamWriter = new StreamWriter(AppProperties.ResultFileName, true, Encoding.Default))
             {
                 string line = DateTime.Now + " data: ";
                 foreach (var key in data.Keys)

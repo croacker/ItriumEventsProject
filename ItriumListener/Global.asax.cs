@@ -10,7 +10,7 @@ namespace ItriumListener
 
         protected void Application_Start(object sender, EventArgs e)
         {
-            configLogger();
+            ItriumListenerEnvironment.getInstance().start();
         }
 
         protected void Session_Start(object sender, EventArgs e)

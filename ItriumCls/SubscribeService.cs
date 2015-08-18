@@ -22,7 +22,7 @@ namespace ItriumCls
         public void beginSubscribe()
         {
             log.Info("Begin subscribe, create HttpWebRequest");
-            HttpWebRequest webRequest = CreateWebRequest(AppProperties.WS_URL, AppProperties.WS_ACTION_SUBSCRIBE);
+            HttpWebRequest webRequest = CreateWebRequest(AppProperties.ItriumWsUrl, AppProperties.WsActionSubscribe);
             webRequest.CookieContainer = new ItriumAuthCookie();
             log.Info("Add to HttpWebRequest SOAP Envelope");
             insertSoapEnvelopeIntoWebRequest(createSoapEnvelopeSubscribe(), webRequest);
@@ -48,7 +48,7 @@ namespace ItriumCls
         public void renewSubscribe()
         {
             log.Info("Begin Renew subscribe, create HttpWebRequest");
-            HttpWebRequest webRequest = CreateWebRequest(renewSubscribeUrl, renewSubscribeUrl + "/" + AppProperties.WS_ACTION_RENEW);
+            HttpWebRequest webRequest = CreateWebRequest(renewSubscribeUrl, renewSubscribeUrl + "/" + AppProperties.Default.WS_ACTION_RENEW);
             webRequest.CookieContainer = new ItriumAuthCookie();
             insertSoapEnvelopeIntoWebRequest(createSoapEnvelopeSubscribe(), webRequest);
 
@@ -69,7 +69,7 @@ namespace ItriumCls
         public void unsubscribe()
         {
             log.Info("Begin Unsubscribe, create HttpWebRequest");
-            HttpWebRequest webRequest = CreateWebRequest(AppProperties.WS_URL, AppProperties.WS_ACTION_UNSUBSCRIBE);
+            HttpWebRequest webRequest = CreateWebRequest(AppProperties.ItriumWsUrl, AppProperties.Default.WS_ACTION_UNSUBSCRIBE);
             webRequest.CookieContainer = new ItriumAuthCookie();
             insertSoapEnvelopeIntoWebRequest(createSoapEnvelopeUnsubscribe(), webRequest);
 

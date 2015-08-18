@@ -20,7 +20,7 @@ namespace ItriumCls
 
         private void init()
         {
-            Add(new Uri(AppProperties.WS_URL), new Cookie(COOKIE_NAME, COOKIE_DEFAULT));
+            Add(new Uri(AppProperties.ItriumWsUrl), new Cookie(COOKIE_NAME, COOKIE_DEFAULT));
         }
 
         /// <summary>

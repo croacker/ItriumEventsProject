@@ -87,6 +87,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="ItriumEventHttpListener.cs" />
+    <Compile Include="ItriumListenerEnvironment.cs" />
     <Compile Include="PersistService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
