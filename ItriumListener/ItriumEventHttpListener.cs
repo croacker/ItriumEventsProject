@@ -56,9 +56,15 @@ namespace ItriumListener
             catch (Exception e)
             {
                 log.Error(e.Message, e);
+                persistError("Error GetData from SOAP request", e);
             }
 
             return data;
+        }
+
+        private void persistError(string title, Exception exception)
+        {
+            persistService.persistError(title, exception);
         }
 
         private void writeData(Dictionary<string, string> data)

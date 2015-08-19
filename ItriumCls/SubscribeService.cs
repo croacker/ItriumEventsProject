@@ -7,7 +7,7 @@ using log4net;
 
 namespace ItriumCls
 {
-    class SubscribeService
+    public class SubscribeService
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(SubscribeService));
 

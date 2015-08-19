@@ -18,31 +18,57 @@ namespace ItriumListener
                     ItriumEventData itriumEventData = new ItriumEventData
                     {
                         credentialHolder = holder,
-                        ClockNumber = data["clockNumber"],
-                        Name = "event"
+                        clockNumber = data["clockNumber"],
+                        typeName = "event"
                     };
-                    db.ItriumEventsDatas.Add(itriumEventData);
+                    db.ItriumEventsData.Add(itriumEventData);
                     db.SaveChanges();
                 }
             }
         }
 
-        public void persistError(string msg)
+        public void persistError(Exception exception)
         {
+            using (var db = new ItriumDbContext())
+            {
+                var errorData = new ErrorData
+                {
+                    errorDate = DateTime.Now,
+                    title = exception.Message,
+                    msg = exception.Message
+                };
+                db.ErrorData.Add(errorData);
+                db.SaveChanges();
+            }
+        }
+
+        public void persistError(string title, Exception exception)
+        {
+            using (var db = new ItriumDbContext())
+            {
+                var errorData = new ErrorData
+                {
+                    errorDate = DateTime.Now,
+                    title = title,
+                    msg = exception.Message
+                };
+                db.ErrorData.Add(errorData);
+                db.SaveChanges();
+            }
         }
 
         public CredentialHolder getCredentialHolderByName(string name, ItriumDbContext db)
         {
             CredentialHolder holder = null;
-            var holders = db.CredentialHolders.Where(ch => ch.Name.Equals(name));
+            var holders = db.CredentialHolder.Where(ch => ch.name.Equals(name));
             holder = !holders.Any() ? addNewCredentialHolder(name, db) : holders.First();
             return holder;
         }
 
         private CredentialHolder addNewCredentialHolder(string name, ItriumDbContext db)
         {
-            var holder = new CredentialHolder {Name = name};
-            db.CredentialHolders.Add(holder);
+            var holder = new CredentialHolder {name = name};
+            db.CredentialHolder.Add(holder);
             return holder;
         }
 
@@ -51,8 +77,8 @@ namespace ItriumListener
             using (ItriumDbContext db = new ItriumDbContext())
             {
                 EventOriginalData eventOriginalData = new EventOriginalData();
-                eventOriginalData.OriginalData = requestData;
-                db.EventOriginalDatas.Add(eventOriginalData);
+                eventOriginalData.originalData = requestData;
+                db.EventOriginalData.Add(eventOriginalData);
                 db.SaveChanges();
             }
         }

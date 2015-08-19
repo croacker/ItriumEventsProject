@@ -64,7 +64,7 @@
     <Compile Include="data\EventOriginalData.cs" />
     <Compile Include="data\ItriumDbContext.cs" />
     <Compile Include="data\ItriumEventData.cs" />
-    <Compile Include="data\PropertiesData.cs" />
+    <Compile Include="data\AppProperty.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />
