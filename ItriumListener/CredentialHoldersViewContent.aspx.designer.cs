@@ -10,24 +10,15 @@
 namespace ItriumListener {
     
     
-    public partial class ErrorViewForm {
+    public partial class CredentialHoldersViewForm {
         
         /// <summary>
-        /// frmErrorsView элемент управления.
+        /// gvCredentialHoldersData элемент управления.
         /// </summary>
         /// <remarks>
         /// Автоматически создаваемое поле.
         /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlForm frmErrorsView;
-        
-        /// <summary>
-        /// gvErrorData элемент управления.
-        /// </summary>
-        /// <remarks>
-        /// Автоматически создаваемое поле.
-        /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvErrorData;
+        protected global::System.Web.UI.WebControls.GridView gvCredentialHoldersData;
     }
 }

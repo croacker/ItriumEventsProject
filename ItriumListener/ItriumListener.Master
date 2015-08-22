@@ -1,0 +1,36 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="ItriumListener.master.cs" Inherits="ItriumListener.ItriumListener" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <link href="Content/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+    <title>События Itrium</title>
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <script src="Scripts/bootstrap.min.js"></script>
+    <script src="Scripts/jquery-2.1.4.min.js"></script>
+    
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <a class="navbar-brand" href="#">События Itrium</a>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="ErrorViewContent.aspx">Список ошибок</a></li>
+                <li><a href="ItriumEventsViewContent.aspx">События</a></li>
+                <li><a href="CredentialHoldersViewContent.aspx">Участники</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <form id="frmMasterItriumListener" runat="server">
+    <div class="container">
+        <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+        
+        </asp:ContentPlaceHolder>
+    </div>
+    </form>
+</body>
+</html>
