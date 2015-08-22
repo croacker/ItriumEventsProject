@@ -50,7 +50,7 @@
             /// <summary>
             /// Имя файла в который сохраняются результаты запросов от Itrium
             /// </summary>
-            public const string RESULT_FILE_NAME = "itrium_events.txt";
+            public const string RESULT_FILE_NAME = "C:\\inetpub\\wwwroot\\itrium_listener\\App_Data\\itrium_events.txt";
 
             /// <summary>
             /// Периодичность обновления подписки
