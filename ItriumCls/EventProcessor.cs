@@ -9,7 +9,10 @@ namespace ItriumCls
     public class EventProcessor
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(EventProcessor));
-        
+
+        public IPersistService persistService { get; set; }
+   
+
         /// <summary>
         /// Получить данные из ответа на запрос Подписка
         /// </summary>
@@ -24,6 +27,7 @@ namespace ItriumCls
             catch (Exception e)
             {
                 log.Error(e);
+                persistError("Error EventProcessor:getDataSubscribe", e);
                 throw new Exception(e.Message, e);
             }
         }
@@ -42,6 +46,7 @@ namespace ItriumCls
             catch (Exception e)
             {
                 log.Error(e);
+                persistError("Error EventProcessor:getDataRenew", e);
                 throw new Exception(e.Message, e);
             }
         }
@@ -60,6 +65,7 @@ namespace ItriumCls
             catch (Exception e)
             {
                 log.Error(e);
+                persistError("Error EventProcessor:getDataEvent", e);
                 throw new Exception(e.Message, e);
             }
         }
@@ -112,42 +118,45 @@ namespace ItriumCls
         {
             Dictionary<string, string> result = new Dictionary<string, string>();
 
-            XmlDocument xmlDocument = new XmlDocument();
-            xmlDocument.LoadXml(eventData);
-
-            log.Info("getDataFromEvent: xmlDocument.Value:" + xmlDocument.Value);
-
-            XmlNode notoficationMessageNode = getNotoficationMessageNode(xmlDocument);
-
-            XmlNode messageNode = getMessageNode(notoficationMessageNode);
-
-            XmlNode dataNode = getDataNode(messageNode);
-
-            string credentialHolderName = string.Empty;
-            string clockNumber = string.Empty;
-            if (dataNode != null)
+            if (eventData != String.Empty)
             {
-                foreach (XmlNode xmlNode in dataNode.ChildNodes)
-                {
-                    if (xmlNode.Attributes["Name"].Value.Equals("CredentialHolderName"))
-                    {
-                        credentialHolderName = xmlNode.Attributes["Value"].Value;
-                    }
+                XmlDocument xmlDocument = new XmlDocument();
+                xmlDocument.LoadXml(eventData);
 
-                    if (xmlNode.Attributes["Name"].Value.Contains("ClockNumber"))
+                log.Info("getDataFromEvent: xmlDocument.Value:" + xmlDocument.Value);
+
+                XmlNode notoficationMessageNode = getNotoficationMessageNode(xmlDocument);
+
+                XmlNode messageNode = getMessageNode(notoficationMessageNode);
+
+                XmlNode dataNode = getDataNode(messageNode);
+
+                string credentialHolderName = string.Empty;
+                string clockNumber = string.Empty;
+                if (dataNode != null)
+                {
+                    foreach (XmlNode xmlNode in dataNode.ChildNodes)
                     {
-                        clockNumber = xmlNode.Attributes["Value"].Value;
+                        if (xmlNode.Attributes["Name"].Value.Equals("CredentialHolderName"))
+                        {
+                            credentialHolderName = xmlNode.Attributes["Value"].Value;
+                        }
+
+                        if (xmlNode.Attributes["Name"].Value.Contains("ClockNumber"))
+                        {
+                            clockNumber = xmlNode.Attributes["Value"].Value;
+                        }
                     }
                 }
+
+                log.Info("credentialHolderName:" + credentialHolderName);
+                Console.WriteLine(credentialHolderName);
+                log.Info("clockNumber:" + clockNumber);
+                Console.WriteLine(clockNumber);
+
+                result.Add("credentialHolderName", credentialHolderName);
+                result.Add("clockNumber", clockNumber);
             }
-
-            log.Info("credentialHolderName:" + credentialHolderName);
-            Console.WriteLine(credentialHolderName);
-            log.Info("clockNumber:" + clockNumber);
-            Console.WriteLine(clockNumber);
-
-            result.Add("credentialHolderName", credentialHolderName);
-            result.Add("clockNumber", clockNumber);
             return result;
         }
 
@@ -200,6 +209,14 @@ namespace ItriumCls
                 }
             }
             return dataNode;
+        }
+
+        private void persistError(string title, Exception exception)
+        {
+            if (persistService != null)
+            {
+                persistService.persistError(title, exception);
+            }
         }
 
         /// <summary>

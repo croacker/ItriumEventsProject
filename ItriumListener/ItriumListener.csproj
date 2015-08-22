@@ -79,10 +79,18 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="ErrorViewForm.aspx" />
     <Content Include="Global.asax" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DispatcherHttpListener.cs" />
+    <Compile Include="ErrorViewForm.aspx.cs">
+      <DependentUpon>ErrorViewForm.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ErrorViewForm.aspx.designer.cs">
+      <DependentUpon>ErrorViewForm.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

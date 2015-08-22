@@ -44,6 +44,7 @@
   <ItemGroup>
     <Compile Include="AppProperties.cs" />
     <Compile Include="EventProcessor.cs" />
+    <Compile Include="IPersistService.cs" />
     <Compile Include="ItriumWebRequestBuilder.cs" />
     <Compile Include="ItriunAuthCookie.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

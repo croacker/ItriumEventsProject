@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using ItriumCls;
 using ItriumData.data;
 
 namespace ItriumListener
 {
-    public class PersistService
+    public class PersistService: IPersistService
     {
         public void persistEvent(Dictionary<string, string> data)
         {
@@ -17,6 +18,7 @@ namespace ItriumListener
                     holder = getCredentialHolderByName(data["credentialHolderName"], db);
                     ItriumEventData itriumEventData = new ItriumEventData
                     {
+                        dateTime = DateTime.Now,
                         credentialHolder = holder,
                         clockNumber = data["clockNumber"],
                         typeName = "event"
@@ -78,6 +80,7 @@ namespace ItriumListener
             {
                 EventOriginalData eventOriginalData = new EventOriginalData();
                 eventOriginalData.originalData = requestData;
+                eventOriginalData.dateTime = DateTime.Now;
                 db.EventOriginalData.Add(eventOriginalData);
                 db.SaveChanges();
             }

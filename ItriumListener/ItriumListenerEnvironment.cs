@@ -144,6 +144,7 @@ namespace ItriumListener
             }
             catch (Exception ex)
             {
+                persistService.persistError("Error ItriumListenerEnvironment:callSubscribe", ex);
                 log.Error(ex.Message);
             }
         }
