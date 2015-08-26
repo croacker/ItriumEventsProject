@@ -18,7 +18,7 @@ namespace ItriumListener
 
         private List<ErrorData> getData()
         {
-            using (ItriumDbContext db = new ItriumDbContext())
+            using (var db = new ItriumDbContext())
             {
                 return db.ErrorData.OrderBy(errorData => errorData.errorDate).ToList();
             }

@@ -18,7 +18,7 @@ namespace ItriumListener
 
         private List<CredentialHolder> getData()
         {
-            using (ItriumDbContext db = new ItriumDbContext())
+            using (var db = new ItriumDbContext())
             {
                 return db.CredentialHolder.OrderBy(errorData => errorData.ID).ToList();
             }

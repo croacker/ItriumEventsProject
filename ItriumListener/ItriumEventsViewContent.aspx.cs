@@ -17,10 +17,10 @@ namespace ItriumListener
             gvItriumEventsData.DataBind();
         }
 
-        private List<Object> getData()
+        private List<object> getData()
         {
-            var events = new List<Object>();
-            using (ItriumDbContext db = new ItriumDbContext())
+            var events = new List<object>();
+            using (var db = new ItriumDbContext())
             {
                 var queEvents = (from e in db.ItriumEventsData select new {e.ID, e.dateTime, e.typeName, credentialHolder = e.credentialHolder.name, e.clockNumber }).ToList();
                 events.AddRange(queEvents);

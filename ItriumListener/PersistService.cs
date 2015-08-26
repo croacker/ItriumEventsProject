@@ -8,7 +8,7 @@ namespace ItriumListener
 {
     public class PersistService: IPersistService
     {
-        public void persistEvent(Dictionary<string, string> data)
+        public void persistEvent(Dictionary<string, string> data, EventOriginalData eventOriginalData)
         {
             if (data.Keys.Count != 0)
             {
@@ -21,7 +21,8 @@ namespace ItriumListener
                         dateTime = DateTime.Now,
                         credentialHolder = holder,
                         clockNumber = data["clockNumber"],
-                        typeName = "event"
+                        typeName = "event",
+                        originalData = eventOriginalData
                     };
                     db.ItriumEventsData.Add(itriumEventData);
                     db.SaveChanges();
@@ -74,16 +75,20 @@ namespace ItriumListener
             return holder;
         }
 
-        internal void persistEventOriginal(string requestData)
+        internal EventOriginalData persistEventOriginal(string requestData)
         {
-            using (ItriumDbContext db = new ItriumDbContext())
+            EventOriginalData eventOriginalData;
+            using (var db = new ItriumDbContext())
             {
-                EventOriginalData eventOriginalData = new EventOriginalData();
-                eventOriginalData.originalData = requestData;
-                eventOriginalData.dateTime = DateTime.Now;
+                eventOriginalData = new EventOriginalData
+                {
+                    originalData = requestData,
+                    dateTime = DateTime.Now
+                };
                 db.EventOriginalData.Add(eventOriginalData);
                 db.SaveChanges();
             }
+            return eventOriginalData;
         }
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Web;
 using ItriumCls;
+using ItriumData.data;
 using log4net;
 
 namespace ItriumListener
@@ -36,13 +37,18 @@ namespace ItriumListener
                 requestData = streamReader.ReadToEnd();
             }
 
-            writeOriginal(requestData);
-            writeData(getData(requestData));
+            EventOriginalData eventOriginalData = newOriginal(requestData);
+            writeData(getData(requestData), eventOriginalData);
         }
 
-        private void writeOriginal(string requestData)
+        private EventOriginalData newOriginal(string requestData)
         {
-            persistService.persistEventOriginal(requestData);
+            EventOriginalData eventOriginalData = new EventOriginalData
+            {
+                originalData = requestData,
+                dateTime = DateTime.Now
+            };
+            return eventOriginalData;
         }
 
         private Dictionary<string, string> getData(string eventData)
@@ -67,10 +73,10 @@ namespace ItriumListener
             persistService.persistError(title, exception);
         }
 
-        private void writeData(Dictionary<string, string> data)
+        private void writeData(Dictionary<string, string> data, EventOriginalData eventOriginalData)
         {
             writeDataService.writeData(data);
-            persistService.persistEvent(data);
+            persistService.persistEvent(data, eventOriginalData);
         }
     }
 }
