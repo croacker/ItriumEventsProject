@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using ItriumData.data;
+using System.Data.Entity;
 
 namespace ItriumListener
 {
@@ -16,12 +17,15 @@ namespace ItriumListener
             gvItriumEventsData.DataBind();
         }
 
-        private List<ItriumEventData> getData()
+        private List<Object> getData()
         {
+            var events = new List<Object>();
             using (ItriumDbContext db = new ItriumDbContext())
             {
-                return db.ItriumEventsData.OrderBy(errorData => errorData.ID).ToList();
+                var queEvents = (from e in db.ItriumEventsData select new {e.ID, e.dateTime, e.typeName, credentialHolder = e.credentialHolder.name, e.clockNumber }).ToList();
+                events.AddRange(queEvents);
             }
+            return events;
         }
     }
 }

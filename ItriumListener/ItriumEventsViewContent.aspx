@@ -13,6 +13,7 @@
                 </asp:BoundField>
                 <asp:BoundField DataField="dateTime" HeaderText="Дата"/>
                 <asp:BoundField DataField="typeName" HeaderText="Тип"/>
+                <asp:BoundField DataField="credentialHolder" HeaderText="Сотрудник"/>
                 <asp:BoundField DataField="clockNumber" HeaderText="Момент"/>
             </Columns>
             <PagerSettings FirstPageText="First" LastPageText="Last"/>
