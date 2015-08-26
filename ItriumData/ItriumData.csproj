@@ -67,7 +67,9 @@
   <ItemGroup>
     <Compile Include="data\CredentialHolder.cs" />
     <Compile Include="data\ErrorData.cs" />
+    <Compile Include="data\EventData.cs" />
     <Compile Include="data\EventOriginalData.cs" />
+    <Compile Include="data\EventSource.cs" />
     <Compile Include="data\ItriumDbContext.cs" />
     <Compile Include="data\ItriumEventData.cs" />
     <Compile Include="data\AppProperty.cs" />

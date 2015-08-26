@@ -120,13 +120,28 @@ namespace ItriumCls
         {
             Dictionary<string, string> result = new Dictionary<string, string>();
 
-            if (eventData != String.Empty)
+            if (eventData != string.Empty)
             {
                 XmlDocument xmlDocument = new XmlDocument();
                 xmlDocument.LoadXml(eventData);
 
-//                XElement main = RemoveAllNamespaces(XElement.Parse(eventData));
-//               IEnumerable<XElement> searched = from m in main.Elements("Body") select m;
+                XElement main = RemoveAllNamespaces(XElement.Parse(eventData));
+                IEnumerable<XElement> messages = getMessagElements(main);
+                if (messages.Any())
+                {
+                    IEnumerable<XElement> sourceSimpleItems = getSourceSimpleItems(messages);
+                    List<XElement> sourceSimpleItemsList = sourceSimpleItems.ToList();
+                    foreach (var simpleItem in sourceSimpleItemsList)
+                    {
+                        if (simpleItem.Attribute("Name").Value == "ddss")
+                        {
+                            Console.WriteLine(simpleItem.Attribute("Name").Value);
+                        }
+                    }
+                    
+                    IEnumerable<XElement> dataSimpleItems = getDataSimpleItems(messages);
+                }
+
 
                 log.Info("getDataFromEvent: xmlDocument.Value:" + xmlDocument.Value);
 
@@ -241,6 +256,30 @@ namespace ItriumCls
             {
                 log.Error(e);
             }
+        }
+
+        private IEnumerable<XElement> getMessagElements(XElement main)
+        {
+            return from body in main.Elements("Body")
+                from notify in body.Elements("Notify")
+                from notificationMessage in notify.Elements("NotificationMessage")
+                from message1 in notificationMessage.Elements("Message")
+                from message2 in message1.Elements("Message")
+                select message2;
+        }
+
+        private IEnumerable<XElement> getSourceSimpleItems(IEnumerable<XElement> messages)
+        {
+            return from source in messages.Elements("Source")
+                   from simpleItem in source.Elements("SimpleItem")
+                   select simpleItem;
+        }
+
+        private IEnumerable<XElement> getDataSimpleItems(IEnumerable<XElement> messages)
+        {
+            return from data in messages.Elements("Data")
+                   from simpleItem in data.Elements("SimpleItem")
+                   select simpleItem;
         }
 
         private XElement RemoveAllNamespaces(XElement xmlDocument)
