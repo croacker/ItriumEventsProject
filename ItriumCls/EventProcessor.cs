@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Xml;
+using System.Xml.Linq;
 using log4net;
 
 namespace ItriumCls
@@ -123,6 +125,9 @@ namespace ItriumCls
                 XmlDocument xmlDocument = new XmlDocument();
                 xmlDocument.LoadXml(eventData);
 
+//                XElement main = RemoveAllNamespaces(XElement.Parse(eventData));
+//               IEnumerable<XElement> searched = from m in main.Elements("Body") select m;
+
                 log.Info("getDataFromEvent: xmlDocument.Value:" + xmlDocument.Value);
 
                 XmlNode notoficationMessageNode = getNotoficationMessageNode(xmlDocument);
@@ -236,6 +241,21 @@ namespace ItriumCls
             {
                 log.Error(e);
             }
+        }
+
+        private XElement RemoveAllNamespaces(XElement xmlDocument)
+        {
+            if (!xmlDocument.HasElements)
+            {
+                XElement xElement = new XElement(xmlDocument.Name.LocalName);
+                xElement.Value = xmlDocument.Value;
+
+                foreach (XAttribute attribute in xmlDocument.Attributes())
+                    xElement.Add(attribute);
+
+                return xElement;
+            }
+            return new XElement(xmlDocument.Name.LocalName, xmlDocument.Elements().Select(el => RemoveAllNamespaces(el)));
         }
     }
 }
