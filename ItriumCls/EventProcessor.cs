@@ -119,6 +119,7 @@ namespace ItriumCls
         private Dictionary<string, string> getDataFromEvent(string eventData)
         {
             Dictionary<string, string> result = new Dictionary<string, string>();
+            Dictionary<string, string> resultLinq = new Dictionary<string, string>();
 
             if (eventData != string.Empty)
             {
@@ -133,15 +134,42 @@ namespace ItriumCls
                     List<XElement> sourceSimpleItemsList = sourceSimpleItems.ToList();
                     foreach (var simpleItem in sourceSimpleItemsList)
                     {
-                        if (simpleItem.Attribute("Name").Value == "ddss")
+                        if (simpleItem.Attribute("Name").Value.Equals("AccessPointToken"))
                         {
-                            Console.WriteLine(simpleItem.Attribute("Name").Value);
+                            resultLinq.Add("Source.AccessPointToken", simpleItem.Attribute("Value").Value);
+                        }
+                        else
+                        {
+                            resultLinq.Add("Source.AccessPointName", simpleItem.Attribute("Value").Value);
+                            resultLinq.Add("Source.NameSomeData", simpleItem.Attribute("Name").Value);
                         }
                     }
-                    
-                    IEnumerable<XElement> dataSimpleItems = getDataSimpleItems(messages);
-                }
 
+                    IEnumerable<XElement> dataSimpleItems = getDataSimpleItems(messages);
+                    foreach (var simpleItem in dataSimpleItems)
+                    {
+                        if (simpleItem.Attribute("Name").Value.Equals("CredentialToken"))
+                        {
+                            resultLinq.Add("Data.CredentialToken", simpleItem.Attribute("Value").Value);
+                        }
+                        else if (simpleItem.Attribute("Name").Value.Equals("CredentialHolderName"))
+                        {
+                            resultLinq.Add("Data.CredentialHolderName", simpleItem.Attribute("Value").Value);
+                        }
+                        else if (simpleItem.Attribute("Name").Value.Equals("Card"))
+                        {
+                            resultLinq.Add("Data.Card", simpleItem.Attribute("Value").Value);
+                        }
+                        else if (simpleItem.Attribute("Name").Value.Contains("ClockNumber"))
+                        {
+                            resultLinq.Add("Data.ClockNumber", simpleItem.Attribute("Value").Value);
+                        }
+                        else
+                        {
+                            resultLinq.Add("Data.Headline", simpleItem.Attribute("Value").Value);
+                        }
+                    }
+                }
 
                 log.Info("getDataFromEvent: xmlDocument.Value:" + xmlDocument.Value);
 
