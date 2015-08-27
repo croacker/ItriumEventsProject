@@ -11,7 +11,7 @@
 <body>
     <form id="frmErrorsView" runat="server">
         <div style="height: 250px">
-            <asp:GridView ID="gvErrorData" runat="server" Height="222px" Width="766px" AutoGenerateColumns="False" CssClass="table table-striped table-bordered table-condensed" Caption="Список ошибок" Font-Bold="False" ShowHeaderWhenEmpty="True">
+            <asp:GridView ID="gvErrorData" runat="server" Height="222px" Width="95%" AutoGenerateColumns="False" CssClass="table table-striped table-bordered table-condensed" Caption="Список ошибок" Font-Bold="False" ShowHeaderWhenEmpty="True">
                 <Columns>
                     <asp:BoundField DataField="ID" HeaderText="id">
                         <ItemStyle Width="50px"/>
