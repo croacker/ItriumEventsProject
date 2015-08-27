@@ -12,19 +12,27 @@ namespace ItriumListener
         {
             if (data.Keys.Count != 0)
             {
-                CredentialHolder holder;
                 using (ItriumDbContext db = new ItriumDbContext())
                 {
-                    holder = getCredentialHolderByName(data["credentialHolderName"], db);
-                    ItriumEventData itriumEventData = new ItriumEventData
+                    CredentialHolder holder = getCredentialHolderByName(data["Data.CredentialHolderName"].Trim(), db);
+
+                    EventSource eventSource = getEventSourceByAPName(data["Source.AccessPointName"], db);
+                    eventSource.accessPointToken = data["Source.AccessPointToken"];//Возможно нужно искать по этому параметру
+                    eventSource.nameSomeData = data["Source.NameSomeData"];
+
+                    EventData eventData = new EventData
                     {
                         dateTime = DateTime.Now,
                         credentialHolder = holder,
-                        clockNumber = data["clockNumber"],
-                        typeName = "event",
-                        originalData = eventOriginalData
+                        сard = data["Data.Card"],
+                        headline = data["Data.Headline"],
+                        clockNumber = data["Data.ClockNumber"],
+                        credentialToken = data["Data.CredentialToken"],
+                        originalData = eventOriginalData,
+                        eventSource = eventSource
                     };
-                    db.ItriumEventsData.Add(itriumEventData);
+
+                    db.EventData.Add(eventData);
                     db.SaveChanges();
                 }
             }
@@ -73,6 +81,19 @@ namespace ItriumListener
             var holder = new CredentialHolder {name = name};
             db.CredentialHolder.Add(holder);
             return holder;
+        }
+
+        public EventSource getEventSourceByAPName(string accessPointName, ItriumDbContext db)
+        {
+            EventSource eventSource = null;
+            var eventSources = db.EventSource.Where(ch => ch.accessPointName.Equals(accessPointName));
+            eventSource = !eventSources.Any() ? addNewEventSource(accessPointName, db) : eventSources.First();
+            return eventSource;
+        }
+
+        private EventSource addNewEventSource(string accessPointName, ItriumDbContext db)
+        {
+            return new EventSource { accessPointName = accessPointName };
         }
 
         internal EventOriginalData persistEventOriginal(string requestData)

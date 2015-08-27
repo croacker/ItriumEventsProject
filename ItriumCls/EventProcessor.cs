@@ -119,8 +119,8 @@ namespace ItriumCls
         private Dictionary<string, string> getDataFromEvent(string eventData)
         {
             Dictionary<string, string> result = new Dictionary<string, string>();
-            Dictionary<string, string> resultLinq = new Dictionary<string, string>();
 
+            log.Info("getDataFromEvent: XML Document:" + eventData);
             if (eventData != string.Empty)
             {
                 XmlDocument xmlDocument = new XmlDocument();
@@ -136,12 +136,12 @@ namespace ItriumCls
                     {
                         if (simpleItem.Attribute("Name").Value.Equals("AccessPointToken"))
                         {
-                            resultLinq.Add("Source.AccessPointToken", simpleItem.Attribute("Value").Value);
+                            result.Add("Source.AccessPointToken", simpleItem.Attribute("Value").Value);
                         }
                         else
                         {
-                            resultLinq.Add("Source.AccessPointName", simpleItem.Attribute("Value").Value);
-                            resultLinq.Add("Source.NameSomeData", simpleItem.Attribute("Name").Value);
+                            result.Add("Source.AccessPointName", simpleItem.Attribute("Value").Value);
+                            result.Add("Source.NameSomeData", simpleItem.Attribute("Name").Value);
                         }
                     }
 
@@ -150,60 +150,26 @@ namespace ItriumCls
                     {
                         if (simpleItem.Attribute("Name").Value.Equals("CredentialToken"))
                         {
-                            resultLinq.Add("Data.CredentialToken", simpleItem.Attribute("Value").Value);
+                            result.Add("Data.CredentialToken", simpleItem.Attribute("Value").Value);
                         }
                         else if (simpleItem.Attribute("Name").Value.Equals("CredentialHolderName"))
                         {
-                            resultLinq.Add("Data.CredentialHolderName", simpleItem.Attribute("Value").Value);
+                            result.Add("Data.CredentialHolderName", simpleItem.Attribute("Value").Value);
                         }
                         else if (simpleItem.Attribute("Name").Value.Equals("Card"))
                         {
-                            resultLinq.Add("Data.Card", simpleItem.Attribute("Value").Value);
+                            result.Add("Data.Card", simpleItem.Attribute("Value").Value);
                         }
                         else if (simpleItem.Attribute("Name").Value.Contains("ClockNumber"))
                         {
-                            resultLinq.Add("Data.ClockNumber", simpleItem.Attribute("Value").Value);
+                            result.Add("Data.ClockNumber", simpleItem.Attribute("Value").Value);
                         }
                         else
                         {
-                            resultLinq.Add("Data.Headline", simpleItem.Attribute("Value").Value);
+                            result.Add("Data.Headline", simpleItem.Attribute("Value").Value);
                         }
                     }
                 }
-
-                log.Info("getDataFromEvent: xmlDocument.Value:" + xmlDocument.Value);
-
-                XmlNode notoficationMessageNode = getNotoficationMessageNode(xmlDocument);
-
-                XmlNode messageNode = getMessageNode(notoficationMessageNode);
-
-                XmlNode dataNode = getDataNode(messageNode);
-
-                string credentialHolderName = string.Empty;
-                string clockNumber = string.Empty;
-                if (dataNode != null)
-                {
-                    foreach (XmlNode xmlNode in dataNode.ChildNodes)
-                    {
-                        if (xmlNode.Attributes["Name"].Value.Equals("CredentialHolderName"))
-                        {
-                            credentialHolderName = xmlNode.Attributes["Value"].Value;
-                        }
-
-                        if (xmlNode.Attributes["Name"].Value.Contains("ClockNumber"))
-                        {
-                            clockNumber = xmlNode.Attributes["Value"].Value;
-                        }
-                    }
-                }
-
-                log.Info("credentialHolderName:" + credentialHolderName);
-                Console.WriteLine(credentialHolderName);
-                log.Info("clockNumber:" + clockNumber);
-                Console.WriteLine(clockNumber);
-
-                result.Add("credentialHolderName", credentialHolderName);
-                result.Add("clockNumber", clockNumber);
             }
             return result;
         }

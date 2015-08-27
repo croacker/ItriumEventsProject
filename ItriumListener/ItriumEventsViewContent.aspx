@@ -6,15 +6,18 @@
     <br/>
     <br/>
     <div style="height: 250px">
-        <asp:GridView ID="gvItriumEventsData" runat="server" Height="222px" Width="766px" AutoGenerateColumns="False" CssClass="table table-striped table-bordered table-condensed" Font-Bold="False" ShowHeaderWhenEmpty="True">
+        <asp:GridView ID="gvItriumEventsData" runat="server" Height="222px" Width="95%" AutoGenerateColumns="False" CssClass="table table-striped table-bordered table-condensed" Font-Bold="False" ShowHeaderWhenEmpty="True">
             <Columns>
                 <asp:BoundField DataField="ID" HeaderText="id">
                     <ItemStyle Width="50px"/>
                 </asp:BoundField>
                 <asp:BoundField DataField="dateTime" HeaderText="Дата"/>
-                <asp:BoundField DataField="typeName" HeaderText="Тип"/>
                 <asp:BoundField DataField="credentialHolder" HeaderText="Сотрудник"/>
-                <asp:BoundField DataField="clockNumber" HeaderText="Момент"/>
+                <asp:BoundField DataField="сard" HeaderText="Карта"/>
+                <asp:BoundField DataField="clockNumber" HeaderText="clockNumber"/>
+                <asp:BoundField DataField="accessPoint" HeaderText="Точка"/>                
+                <asp:BoundField DataField="headline" HeaderText="Заголовок"/>                
+                <asp:BoundField DataField="credentialToken" HeaderText="UID"/>                
             </Columns>
             <PagerSettings FirstPageText="First" LastPageText="Last"/>
         </asp:GridView>

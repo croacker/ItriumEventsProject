@@ -22,7 +22,16 @@ namespace ItriumListener
             var events = new List<object>();
             using (var db = new ItriumDbContext())
             {
-                var queEvents = (from e in db.ItriumEventsData select new {e.ID, e.dateTime, e.typeName, credentialHolder = e.credentialHolder.name, e.clockNumber }).ToList();
+                var queEvents = (from e in db.EventData
+                                 select new {e.ID,
+                                     e.dateTime,
+                                     credentialHolder = e.credentialHolder.name,
+                                     e.сard,
+                                     e.clockNumber,
+                                     accessPoint = e.eventSource.accessPointName,
+                                     e.headline,
+                                     e.credentialToken
+                                     }).ToList();
                 events.AddRange(queEvents);
             }
             return events;

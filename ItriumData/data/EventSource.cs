@@ -8,7 +8,7 @@ using System.Text;
 /// </summary>
 namespace ItriumData.data
 {
-    class EventSource
+    public class EventSource
     {
         public int ID { get; set; }
         public string accessPointToken { get; set; }
