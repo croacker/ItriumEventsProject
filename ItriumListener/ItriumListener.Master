@@ -4,21 +4,24 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <link href="Content/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>  
+    <link href="Content/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>  
+    <script src="Scripts/bootstrap.min.js"></script>
+    <script src="Scripts/jquery-2.1.4.min.js"></script>
+    <script src="Scripts/wow.min.js"></script>
+
     <title>События Itrium</title>
-    <asp:ContentPlaceHolder ID="head" runat="server">
+    <asp:ContentPlaceHolder ID="head" runat="server">        
     </asp:ContentPlaceHolder>
 </head>
 <body>
-    <script src="Scripts/bootstrap.min.js"></script>
-    <script src="Scripts/jquery-2.1.4.min.js"></script>
+    
     
     <div class="navbar navbar-inverse navbar-fixed-top">
         <a class="navbar-brand" href="#">События Itrium</a>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                <li class="active"><a href="ErrorViewContent.aspx">Список ошибок</a></li>
+                <li><a href="ErrorViewContent.aspx">Список ошибок</a></li>
                 <li><a href="ItriumEventsViewContent.aspx">События</a></li>
                 <li><a href="CredentialHoldersViewContent.aspx">Участники</a></li>
             </ul>

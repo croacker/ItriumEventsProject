@@ -4,7 +4,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <br/>
     <div style="height: 250px">
-            <asp:GridView ID="gvErrorData" runat="server" Height="222px" Width="766px" AutoGenerateColumns="False" CssClass="table table-striped table-bordered table-condensed" Caption="Список ошибок" Font-Bold="False" ShowHeaderWhenEmpty="True">
+            <asp:GridView ID="gvErrorData" runat="server" Height="222px" Width="95%" AutoGenerateColumns="False" CssClass="table table-striped table-bordered table-condensed" Caption="Список ошибок" Font-Bold="False" ShowHeaderWhenEmpty="True" AllowPaging="True" OnPageIndexChanging="gvErrorData_PageIndexChanging">
                 <Columns>
                     <asp:BoundField DataField="ID" HeaderText="id">
                         <ItemStyle Width="50px"/>

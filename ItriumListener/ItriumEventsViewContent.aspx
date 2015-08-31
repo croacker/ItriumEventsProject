@@ -6,7 +6,7 @@
     <br/>
     <br/>
     <div style="height: 250px">
-        <asp:GridView ID="gvItriumEventsData" runat="server" Height="222px" Width="95%" AutoGenerateColumns="False" CssClass="table table-striped table-bordered table-condensed" Font-Bold="False" ShowHeaderWhenEmpty="True">
+        <asp:GridView ID="gvItriumEventsData" runat="server" Height="222px" Width="95%" AutoGenerateColumns="False" CssClass="table table-striped table-bordered table-condensed" Font-Bold="False" ShowHeaderWhenEmpty="True" AllowPaging="True" CellPadding="5" OnPageIndexChanging="gvItriumEventsData_PageIndexChanging">
             <Columns>
                 <asp:BoundField DataField="ID" HeaderText="id">
                     <ItemStyle Width="50px"/>

@@ -12,6 +12,11 @@ namespace ItriumListener
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            loadData();
+        }
+
+        private void loadData()
+        {
             gvCredentialHoldersData.DataSource = getData();
             gvCredentialHoldersData.DataBind();
         }
@@ -20,8 +25,14 @@ namespace ItriumListener
         {
             using (var db = new ItriumDbContext())
             {
-                return db.CredentialHolder.OrderBy(errorData => errorData.ID).ToList();
+                return db.CredentialHolder.OrderBy(credentialHolder => credentialHolder.name).ToList();
             }
+        }
+
+        protected void gvCredentialHoldersData_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+            gvCredentialHoldersData.PageIndex = e.NewPageIndex;
+            loadData();
         }
     }
 }

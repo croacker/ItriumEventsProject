@@ -13,6 +13,11 @@ namespace ItriumListener
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            loadData();
+        }
+
+        private void loadData()
+        {
             gvItriumEventsData.DataSource = getData();
             gvItriumEventsData.DataBind();
         }
@@ -31,10 +36,16 @@ namespace ItriumListener
                                      accessPoint = e.eventSource.accessPointName,
                                      e.headline,
                                      e.credentialToken
-                                     }).ToList();
+                                     }).OrderByDescending(e => e.dateTime).ToList();
                 events.AddRange(queEvents);
             }
             return events;
+        }
+
+        protected void gvItriumEventsData_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+            gvItriumEventsData.PageIndex = e.NewPageIndex;
+            loadData();
         }
     }
 }

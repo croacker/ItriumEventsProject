@@ -12,6 +12,11 @@ namespace ItriumListener
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            loadData();
+        }
+
+        private void loadData()
+        {
             gvErrorData.DataSource = getData();
             gvErrorData.DataBind();
         }
@@ -20,8 +25,14 @@ namespace ItriumListener
         {
             using (ItriumDbContext db = new ItriumDbContext())
             {
-                return db.ErrorData.OrderBy(errorData => errorData.errorDate).ToList();
+                return db.ErrorData.OrderByDescending(errorData => errorData.errorDate).ToList();
             }
+        }
+
+        protected void gvErrorData_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+            gvErrorData.PageIndex = e.NewPageIndex;
+            loadData();
         }
     }
 }

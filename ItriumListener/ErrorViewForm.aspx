@@ -6,7 +6,7 @@
 <head runat="server">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>Список ошибок</title>
-    <link href="Content/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+    <%--<link href="Content/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>--%>
 </head>
 <body>
     <form id="frmErrorsView" runat="server">
