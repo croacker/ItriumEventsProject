@@ -6,8 +6,8 @@
 <head runat="server">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>  
     <link href="Content/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>  
-    <script src="Scripts/bootstrap.min.js"></script>
     <script src="Scripts/jquery-2.1.4.min.js"></script>
+    <script src="Scripts/bootstrap.min.js"></script>
     <script src="Scripts/wow.min.js"></script>
 
     <title>События Itrium</title>
@@ -24,6 +24,7 @@
                 <li><a href="ErrorViewContent.aspx">Список ошибок</a></li>
                 <li><a href="ItriumEventsViewContent.aspx">События</a></li>
                 <li><a href="CredentialHoldersViewContent.aspx">Участники</a></li>
+                <li><a href="ChangePasswordView.aspx">Изменение пароля</a></li>
             </ul>
         </div>
     </div>
