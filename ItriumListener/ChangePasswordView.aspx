@@ -29,7 +29,7 @@
 
 
 
-      <div class="modal fade bs-example-modal-sm" id="myPleaseWait" tabindex="-1"
+      <div class="modal fade bs-example-modal-sm" id="waitCardPopup" tabindex="-1"
     role="dialog" aria-hidden="true" data-backdrop="static">
     <div class="modal-dialog modal-sm">
         <div class="modal-content">
@@ -53,14 +53,14 @@
   </form>
         <script type="text/javascript">
             function callWaitItriumEvent() {
-                $('#myPleaseWait').modal('show');
+                $('#waitCardPopup').modal('show');
                 //$.ajax({
                 //    url: "test.html",
                 //    success: function (data) {
-                //        $('#myPleaseWait').modal('hide');
+                //        $('#waitCardPopup').modal('hide');
                 //    },
                 //    error: function () {
-                //        $('#myPleaseWait').modal('hide');
+                //        $('#waitCardPopup').modal('hide');
                 //        console.log('An error occurred');
                 //    }
                 //});
