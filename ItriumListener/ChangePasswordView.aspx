@@ -64,6 +64,24 @@
                 //        console.log('An error occurred');
                 //    }
                 //});
+
+                var mes = $('#txtOldPassword').val();
+                var jsonText = JSON.stringify({ message: mes });
+
+                $.ajax({
+                    type: "POST",
+                    url: "ChangePasswordView.aspx/ChangePassword",
+                    data: "{'message':'messagevalue'}",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (msg) {
+                        alert(msg);
+                    },
+                    failure: function (response) {
+                        alert(response.d);
+                    }
+                });
+
             }
             </script>
 
