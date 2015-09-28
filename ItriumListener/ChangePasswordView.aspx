@@ -13,10 +13,6 @@
   <h2>Изменть пароль пользователя</h2>
   <form role="form">
     <div class="form-group">
-      <label for="txtOldPassword">Старый пароль:</label>
-        <asp:TextBox ID="txtOldPassword" runat="server" class="form-control"></asp:TextBox>
-    </div>
-    <div class="form-group">
       <label for="txtNewPassword">Новый пароль:</label>
         <asp:TextBox ID="txtNewPassword" runat="server" class="form-control"></asp:TextBox>
     </div>
@@ -54,35 +50,49 @@
         <script type="text/javascript">
             function callWaitItriumEvent() {
                 $('#waitCardPopup').modal('show');
-                //$.ajax({
-                //    url: "test.html",
-                //    success: function (data) {
-                //        $('#waitCardPopup').modal('hide');
-                //    },
-                //    error: function () {
-                //        $('#waitCardPopup').modal('hide');
-                //        console.log('An error occurred');
-                //    }
-                //});
 
-                var mes = $('#txtOldPassword').val();
-                var jsonText = JSON.stringify({ message: mes });
+                var newPassword = $('#ContentPlaceHolder1_txtNewPassword').val();
+                var confirmPassword = $('#ContentPlaceHolder1_txtConfirmPassword').val();
+
+                if (!checkPassword(newPassword, confirmPassword)) {
+                    showError("Пароли не совпадают!");
+                    return;
+                }
+
+                var jsonText = JSON.stringify({ newPassword: newPassword, confirmPassword: confirmPassword});
 
                 $.ajax({
                     type: "POST",
                     url: "ChangePasswordView.aspx/ChangePassword",
-                    data: "{'message':'messagevalue'}",
+                    data: "{'message':'" + jsonText + "'}",
                     contentType: "application/json; charset=utf-8",
                     dataType: "json",
                     success: function (msg) {
                         alert(msg);
                     },
                     failure: function (response) {
-                        alert(response.d);
+                        //alert(response.d);
+                        showError(response.data);
                     }
                 });
 
             }
+
+            function showError(msg) {
+                alert(msg)
+            }
+
+            function showInfo(msg) {
+                alert(msg)
+            }
+
+            function checkPassword(newPassword, confirmPassword) {
+                if (!newPassword || !confirmPassword || newPassword != confirmPassword) {
+                    return false;
+                }
+                return true;
+            }
+
             </script>
 
 </div>
