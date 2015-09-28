@@ -38,9 +38,11 @@ namespace ItriumListener
             var newPassword = ((Dictionary<string, object>)messageData)["newPassword"];
             var confirmPassword = ((Dictionary<string, object>)messageData)["confirmPassword"];
 
+            bool result = changePasswordRun((string)newPassword);
+
             ChangePasswordResult changePasswordResult = new ChangePasswordResult();
-            changePasswordResult.result = "OK";
-            changePasswordResult.message = "Password changed";
+            changePasswordResult.result = result ? "OK":"ERROR";
+            changePasswordResult.message = result ? "Password changed" : "Password NOT changed";
 
             var json = serializer.Serialize(changePasswordResult);
 
@@ -51,7 +53,7 @@ namespace ItriumListener
         /// Изменить пароль пользователя
         /// </summary>
         /// <param name="newPassword"></param>
-        private bool changePasswordRun(string newPassword)
+        private static bool changePasswordRun(string newPassword)
         {
             bool result = false;
             EventData eventData = waitItriumEvent(DateTime.Now);
@@ -67,12 +69,20 @@ namespace ItriumListener
         /// </summary>
         /// <param name="changeMoment"></param>
         /// <returns></returns>
-        private EventData waitItriumEvent(DateTime changeMoment)
+        private static EventData waitItriumEvent(DateTime changeMoment)
         {
             EventData eventData = null;
             using (var db = new ItriumDbContext())
             {
-                eventData = db.EventData.Where(ed => ed.dateTime > changeMoment).First();
+                    for(int i = 0; i < DELAY_COUNT; i++)
+                    {
+                        eventData = db.EventData.Where(ed => ed.dateTime > changeMoment).First();
+                        if(eventData != null)
+                        {
+                        break;
+                        }
+                    System.Threading.Thread.Sleep(DELAY_MSEC);
+                }
             }
             return eventData;
         }
