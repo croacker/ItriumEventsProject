@@ -13,6 +13,10 @@
   <h2>Изменть пароль пользователя</h2>
   <form role="form">
     <div class="form-group">
+      <label for="txtEmployeeNumber">Табельный номер:</label>
+      <asp:TextBox ID="txtEmployeeNumber" runat="server" class="form-control"></asp:TextBox>
+    </div>
+    <div class="form-group">
       <label for="txtNewPassword">Новый пароль:</label>
         <asp:TextBox ID="txtNewPassword" runat="server" class="form-control"></asp:TextBox>
     </div>
@@ -49,8 +53,7 @@
   </form>
         <script type="text/javascript">
             function callWaitItriumEvent() {
-                $('#waitCardPopup').modal('show');
-
+                var employeeNumber = $('#ContentPlaceHolder1_txtEmployeeNumber').val();
                 var newPassword = $('#ContentPlaceHolder1_txtNewPassword').val();
                 var confirmPassword = $('#ContentPlaceHolder1_txtConfirmPassword').val();
 
@@ -59,7 +62,9 @@
                     return;
                 }
 
-                var jsonText = JSON.stringify({ newPassword: newPassword, confirmPassword: confirmPassword});
+                $('#waitCardPopup').modal('show');
+
+                var jsonText = JSON.stringify({employeeNumber:employeeNumber, newPassword: newPassword, confirmPassword: confirmPassword});
 
                 $.ajax({
                     type: "POST",
@@ -67,12 +72,18 @@
                     data: "{'message':'" + jsonText + "'}",
                     contentType: "application/json; charset=utf-8",
                     dataType: "json",
-                    success: function (msg) {
-                        alert(msg);
+                    success: function (response) {
+                        var data = JSON.parse(response.d);
+                        if (data.result = "ERROR") {
+                            showError(data.message);
+                        } else {
+                            showInfo(data.message);
+                        }
+                        $('#waitCardPopup').modal('hide');
                     },
                     failure: function (response) {
-                        //alert(response.d);
                         showError(response.data);
+                        $('#waitCardPopup').modal('hide');
                     }
                 });
 
