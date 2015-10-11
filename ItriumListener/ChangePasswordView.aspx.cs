@@ -2,8 +2,12 @@
 using log4net;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.DirectoryServices;
 using System.Linq;
+using System.Management.Automation;
+using System.Management.Automation.Runspaces;
+using System.Security;
 using System.Web;
 using System.Web.Script.Serialization;
 using System.Web.Services;
@@ -58,15 +62,15 @@ namespace ItriumListener
         {
             ChangePasswordResult changePasswordResult = null;
             EventData eventData = waitItriumEvent(employeeNumber, DateTime.Now);
-            if(eventData != null)
+            if (eventData != null)
             {
-                changePasswordResult = changeNtUserPassword(employeeNumber, newPassword);
+                changePasswordResult = changeUserPasswordByPowerShell(employeeNumber, newPassword);
             }
             else
             {
                 changePasswordResult = new ChangePasswordResult();
                 changePasswordResult.result = "ERROR";
-                changePasswordResult.message ="Время ожидания истекло!";
+                changePasswordResult.message = "Время ожидания истекло!";
             }
             return changePasswordResult;
         }
@@ -100,6 +104,12 @@ namespace ItriumListener
             return eventData;
         }
 
+        /// <summary>
+        /// Изменить пароль AD пользователя с помощью COM
+        /// </summary>
+        /// <param name="employeeNumber"></param>
+        /// <param name="newPassword"></param>
+        /// <returns></returns>
         private static ChangePasswordResult changeNtUserPassword(string employeeNumber, string newPassword)
         {
             ChangePasswordResult result = new ChangePasswordResult();
@@ -120,6 +130,46 @@ namespace ItriumListener
                 result.message = e.Message;
             }
 
+            return result;
+        }
+
+        /// <summary>
+        /// Изменить пароль AD пользователя с помощью PowerShell
+        /// </summary>
+        /// <param name="employeeNumber"></param>
+        /// <param name="newPassword"></param>
+        /// <returns></returns>
+        private static ChangePasswordResult changeUserPasswordByPowerShell(string employeeNumber, string newPassword)
+        {
+            ChangePasswordResult result = new ChangePasswordResult();
+            try
+            {
+                string strCmd1 = " $credential = New-Object System.Management.Automation.PsCredential(\"stc\\soapservice\", (ConvertTo-SecureString \"soapservice\" -AsPlainText -Force)); ";
+                string strCmd2 = " import-module ActiveDirectory;  Set-ADAccountPassword " + employeeNumber + " -NewPassword(ConvertTo-SecureString '" + newPassword + "' -AsPlainText -Force) -Reset -Credential $credential ";
+
+                log.Debug("Run PowerShell command:");
+                log.Debug(strCmd1);
+                log.Debug(strCmd2);
+
+                    using (PowerShell powerShellInstance = PowerShell.Create())
+                    {                        
+                        powerShellInstance.AddScript(strCmd1);
+                        powerShellInstance.AddScript(strCmd2);
+                        log.Debug("Invoke PowerShell");
+                        Collection<PSObject> PSOutput = powerShellInstance.Invoke();
+                        log.Debug("PowerShell result:");
+                        log.Debug(PSOutput);
+                    }
+                
+                result.result = "OK";
+                result.message = "Пароль успешно изменен";
+            }
+            catch (Exception e)
+            {
+                log.Error(e.Message, e);
+                result.result = "ERROR";
+                result.message = e.Message;
+            }
             return result;
         }
     }   
